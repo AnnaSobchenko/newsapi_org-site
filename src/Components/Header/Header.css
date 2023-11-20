@@ -1,0 +1,11 @@
+.header {
+  background-color: var(--header-bg-color);
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.header_logo {
+  fill: var(--header-text-color);
+  width: 160px;
+  height: 36px;
+}

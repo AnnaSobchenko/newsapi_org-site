@@ -1,0 +1,16 @@
+:root {
+  --main-bg-color: #ffffff;
+  --header-bg-color: #1a232e;
+  --header-text-color: #ffffff;
+  --main-text-color: #212932;
+  --footer-shadow-color: rgba(223, 223, 223, 0.25);
+}
+
+body {
+  margin: 0;
+  font-family: "Noto Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--main-text-color);
+  fill: var(--main-text-color);
+}
