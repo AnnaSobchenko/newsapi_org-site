@@ -5,9 +5,14 @@ import "./Header.css";
 const Header = () => {
   return (
     <header className="header">
-      <Container>
+      <Container sx={{ display: "flex", justifyContent: "center" }}>
         <Link href="/" className="header_link" underline="hover">
-          <img src={Logo} alt="Formula" className="header_logo" />
+          <img
+            src={Logo}
+            fill="#ffffff"
+            alt="Formula"
+            className="header_logo"
+          />
         </Link>
       </Container>
     </header>

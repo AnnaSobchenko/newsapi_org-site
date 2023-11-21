@@ -1,4 +1,4 @@
-import { Box, ListItem, ListItemText, SvgIcon } from "@mui/material";
+import { Box, Grid, ListItem, ListItemText, SvgIcon } from "@mui/material";
 import { Link } from "react-router-dom";
 import LinkIcon from "@mui/icons-material/Link";
 import NoPhotographyIcon from "@mui/icons-material/NoPhotography";
@@ -9,73 +9,84 @@ const ArticlesItem = ({ article }) => {
     article;
 
   return (
-    <ListItem
-      id={id}
-      sx={{ border: 1, borderColor: "rgba(53, 61, 106, 0.08)" }}
-    >
-      <Link to={`/${id}`} className="articlesItem_link">
-        {urlToImage ? (
-          <img
-            src={urlToImage}
-            alt={description}
-            width="11%"
-            height={70}
-            loading="lazy"
-            className="articlesItem_img"
-          />
-        ) : (
-          <Box
-            sx={{
-              width: "11%",
-              height: 87,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "8px 16px",
-            }}
+    <ListItem id={id} className="articlesItem">
+      <Grid container width="100%" height="100%" spacing={0}>
+        <Grid
+          item
+          xs={1.5}
+          alignItems="center"
+          justifyContent="center"
+          className="articlesItem_item_grid"
+        >
+          {urlToImage ? (
+            <Box width="100%" height={70} overflow={"hidden"}>
+              <img
+                src={urlToImage}
+                alt={title.slice(0, 8)}
+                loading="lazy"
+                className="articlesItem_img"
+              />
+            </Box>
+          ) : (
+            <SvgIcon
+              component={NoPhotographyIcon}
+              stroke="currentColor"
+              width="100%"
+            />
+          )}
+        </Grid>
+        <Grid item xs={2.4} className="articlesItem_item_grid">
+          <Link to={`/${id}`} className="articlesItem_link">
+            {title && (
+              <ListItemText primary={title} className="articlesItem_title" />
+            )}
+          </Link>
+        </Grid>
+
+        <Grid item xs={1.8} className="articlesItem_item_grid">
+          {author && (
+            <ListItemText
+              primary={author}
+              sx={{
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+                margin: 0,
+              }}
+            />
+          )}
+        </Grid>
+        <Grid item xs={3.45} className="articlesItem_item_grid">
+          {description && <ListItemText primary={description} />}
+        </Grid>
+        <Grid
+          item
+          xs={1.55}
+          justifyContent="center"
+          textAlign="center"
+          justifyItems="center"
+          className="articlesItem_item_grid"
+        >
+          <ListItemText primary={publishedAt.slice(0, 10)} />
+        </Grid>
+
+        <Grid
+          item
+          xs={1.25}
+          justifyContent="center"
+          textAlign="center"
+          justifyItems="center"
+          className="articlesItem_item_grid"
+        >
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="articlesItem_link"
           >
-            <SvgIcon component={NoPhotographyIcon} stroke="currentColor" />
-          </Box>
-        )}
-        <ListItemText
-          primary={title}
-          sx={{
-            width: "22%",
-            height: "87px",
-            padding: "8px 16px",
-            textOverflow: "ellipsis",
-            overflow: "hidden",
-            // whiteSpace: "nowrap",
-            // WebkitLineClamp: 2,
-            // WebkitBoxOrient: "vertical",
-          }}
-          className="articlesItem_title"
-        />
-        {author ? (
-          <ListItemText
-            primary={author}
-            sx={{ width: "16%", padding: "8px 16px" }}
-          />
-        ) : (
-          <Box sx={{ width: "16%" }} />
-        )}
-        <ListItemText
-          primary={description}
-          sx={{ width: "29%", height: "auto", padding: "8px 16px" }}
-        />
-        <ListItemText
-          primary={publishedAt.slice(0, 10)}
-          sx={{ width: "12%", height: "auto" }}
-        />
-      </Link>
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer nofollow"
-        className="articlesItem_link"
-      >
-        <SvgIcon component={LinkIcon} stroke="currentColor" />
-      </a>
+            <SvgIcon component={LinkIcon} stroke="currentColor" />
+          </a>
+        </Grid>
+      </Grid>
     </ListItem>
   );
 };

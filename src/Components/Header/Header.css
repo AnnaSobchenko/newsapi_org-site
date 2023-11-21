@@ -6,6 +6,7 @@
 
 .header_logo {
   fill: var(--header-text-color);
+  stroke: white;
   width: 160px;
   height: 36px;
 }
