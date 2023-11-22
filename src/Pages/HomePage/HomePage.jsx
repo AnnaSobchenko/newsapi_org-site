@@ -15,7 +15,8 @@ import { v4 as uuidv4 } from "uuid";
 import Filter from "../../Components/Filter/Filter";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getMaxQuantityPagesApi } from "../../utils/fetchApi";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -47,7 +48,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -58,10 +58,42 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const HomePage = ({ appState, setAppState }) => {
+  const [maxCount, setMaxCount] = useState(100);
   const [open, setOpen] = useState(false);
-  const { q, page, pageSize, maxCount } = appState;
-  console.log("page :>> ", page, pageSize);
+  const { q, page, pageSize, filterCountry, filterCategory } = appState;
 
+  const getMaxQuantityPages = async () => {
+    const ar = await getMaxQuantityPagesApi({
+      params: {
+        country: filterCountry,
+        category: filterCategory,
+        q: q,
+        pageSize: 100,
+        page: page,
+      },
+    });
+    await setMaxCount(ar.length);
+  };
+
+  const getRowsPerPageOptions = (maxCount, sizePage) => {
+    const rowsPerPageOptions = [
+      5,
+      maxCount,
+      Math.round(maxCount / 10) * 5,
+      sizePage,
+    ];
+
+    const sortArray = Array.from(new Set(rowsPerPageOptions)).sort(
+      (a, b) => a - b
+    );
+    return sortArray;
+  };
+
+  const rowsPerPageOptions = getRowsPerPageOptions(maxCount, pageSize);
+
+  useEffect(() => {
+    getMaxQuantityPages();
+  }, [filterCategory, filterCountry, q]);
   return (
     <main>
       <Container sx={{ paddingTop: 4 }}>
@@ -155,15 +187,14 @@ const HomePage = ({ appState, setAppState }) => {
           count={maxCount}
           page={page - 1}
           onPageChange={(e, newPage) => {
-            console.log("e, newPage :>> ", e.target, newPage);
-            return setAppState({ ...appState, page: newPage });
+            setAppState({ ...appState, page: newPage + 1 });
           }}
           rowsPerPage={pageSize}
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={rowsPerPageOptions}
           onRowsPerPageChange={(event) => {
             setAppState({
               ...appState,
-              pageSize: parseInt(event.target.value, pageSize),
+              pageSize: parseInt(event.target.value, 10),
               page: 1,
             });
           }}

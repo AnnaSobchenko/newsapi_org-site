@@ -1,15 +1,11 @@
 import { Suspense, useEffect, useState } from "react";
-import "./App.css";
 import Footer from "./Components/Footer/Footer";
 import Header from "./Components/Header/Header";
 import HomePage from "./Pages/HomePage/HomePage";
 import Loader from "./Loader/Loader";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ArticlePage from "./Pages/ArticlePage/ArticlePage";
-import {
-  getMaxQuantityPagesApi,
-  getTopHeadlinesNewsApi,
-} from "./utils/fetchApi";
+import { getTopHeadlinesNewsApi } from "./utils/fetchApi";
 import "@fontsource/noto-sans";
 import "@fontsource/noto-sans/500.css";
 import "@fontsource/noto-sans/700.css";
@@ -36,11 +32,10 @@ const theme = createTheme({
 const initialState = {
   articles: [],
   filterCountry: "ua",
-  filterCategory: "",
+  filterCategory: "general",
   q: "",
   pageSize: 5,
   page: 1,
-  maxCount: 20,
 };
 
 function App() {
@@ -57,33 +52,13 @@ function App() {
         page: page,
       },
     });
-    console.log("ar :>> ", ar);
     await setAppState({ ...appState, articles: [...ar] });
-  };
-
-  const getMaxQuantityPages = async () => {
-    const ar = await getMaxQuantityPagesApi({
-      params: {
-        country: filterCountry,
-        category: filterCategory,
-        q: q,
-        pageSize: 100,
-        page: page,
-      },
-    });
-    console.log("ar :>> ", ar.length);
-    await setAppState({ ...appState, maxCount: ar.length });
   };
 
   useEffect(() => {
     getTopHeadlinesNews();
-  }, [filterCountry, filterCategory, q, page]);
+  }, [filterCountry, filterCategory, q, page, pageSize]);
 
-  // useEffect(() => {
-  //   getMaxQuantityPages();
-  // }, [pageSize]);
-
-  // console.log("articles :>> ", appState.articles);
   return (
     <div className="App">
       <ThemeProvider theme={theme}>

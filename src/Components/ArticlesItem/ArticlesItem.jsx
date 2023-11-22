@@ -40,8 +40,7 @@ const ArticlesItem = ({ article }) => {
             to={`/${id}`}
             className="articlesItem_link"
             onClick={() => {
-              console.log("article :>> ", article);
-              return localStorage.setItem("article", JSON.stringify(article));
+              localStorage.setItem("article", JSON.stringify(article));
             }}
           >
             {title && (
