@@ -3,7 +3,7 @@ import Footer from "./Components/Footer/Footer";
 import Header from "./Components/Header/Header";
 import HomePage from "./Pages/HomePage/HomePage";
 import Loader from "./Loader/Loader";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import ArticlePage from "./Pages/ArticlePage/ArticlePage";
 import { getTopHeadlinesNewsApi } from "./utils/fetchApi";
 import "@fontsource/noto-sans";
@@ -62,7 +62,7 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <BrowserRouter basename="/">
+        <HashRouter basename="/">
           <Suspense fallback={Loader}>
             <Header />
             <Routes>
@@ -79,7 +79,7 @@ function App() {
             </Routes>
             <Footer />
           </Suspense>
-        </BrowserRouter>
+        </HashRouter>
       </ThemeProvider>
     </div>
   );
