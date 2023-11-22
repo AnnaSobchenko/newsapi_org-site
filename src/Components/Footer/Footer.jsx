@@ -15,7 +15,9 @@ const Footer = () => {
           <img src={Logo} alt="Formula" className="footer_logo" />
         </Link>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography>©Formula 2023. All Rights Reserved</Typography>
+          <Typography variant="body2">
+            ©Formula 2023. All Rights Reserved
+          </Typography>
           <Button
             variant="text"
             target="_top"

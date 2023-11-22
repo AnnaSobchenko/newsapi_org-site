@@ -19,7 +19,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: var(--main-text-color);
   fill: var(--main-text-color);
-  min-height: 100vw;
   height: auto;
 }
 
@@ -57,4 +56,8 @@ main::-webkit-scrollbar {
   position: absolute;
   white-space: nowrap;
   width: 1px;
+}
+
+main {
+  min-height: calc(100vh - 150px);
 }

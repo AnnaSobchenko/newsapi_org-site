@@ -12,6 +12,7 @@ import {
 } from "./utils/fetchApi";
 import "@fontsource/noto-sans";
 import "@fontsource/noto-sans/500.css";
+import "@fontsource/noto-sans/700.css";
 import { ThemeProvider, createTheme } from "@mui/material";
 
 const theme = createTheme({
@@ -19,6 +20,16 @@ const theme = createTheme({
     fontFamily: "Noto Sans",
     fontWeight: 500,
     fontSize: 14,
+    body1: {
+      fontWeight: 700,
+    },
+    body2: {
+      fontWeight: 500,
+      fontSize: 14,
+    },
+    h5: {
+      fontWeight: 500,
+    },
   },
 });
 
@@ -64,9 +75,9 @@ function App() {
     await setAppState({ ...appState, maxCount: ar.length });
   };
 
-  // useEffect(() => {
-  //   getTopHeadlinesNews();
-  // }, [filterCountry, filterCategory, q, page]);
+  useEffect(() => {
+    getTopHeadlinesNews();
+  }, [filterCountry, filterCategory, q, page]);
 
   // useEffect(() => {
   //   getMaxQuantityPages();

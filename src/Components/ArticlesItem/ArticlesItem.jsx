@@ -36,7 +36,14 @@ const ArticlesItem = ({ article }) => {
           )}
         </Grid>
         <Grid item xs={2.4} className="articlesItem_item_grid">
-          <Link to={`/${id}`} className="articlesItem_link">
+          <Link
+            to={`/${id}`}
+            className="articlesItem_link"
+            onClick={() => {
+              console.log("article :>> ", article);
+              return localStorage.setItem("article", JSON.stringify(article));
+            }}
+          >
             {title && (
               <ListItemText primary={title} className="articlesItem_title" />
             )}
