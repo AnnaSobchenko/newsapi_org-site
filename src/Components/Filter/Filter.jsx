@@ -31,9 +31,6 @@ const Filter = ({ appState, setAppState }) => {
         sx={{ width: 250 }}
         placeholder="Select"
       >
-        {/* <MenuItem disabled value="">
-          <em>Select</em>
-        </MenuItem> */}
         <MenuItem value={"business"}>Business</MenuItem>
         <MenuItem value={"general"}>General</MenuItem>
         <MenuItem value={"health"}>Health</MenuItem>
