@@ -15,8 +15,9 @@ import { v4 as uuidv4 } from "uuid";
 import Filter from "../../Components/Filter/Filter";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getMaxQuantityPagesApi } from "../../utils/fetchApi";
+import { throttle } from "lodash";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -89,6 +90,18 @@ const HomePage = ({ appState, setAppState }) => {
     return sortArray;
   };
 
+  const handleInputChangeThrottled = useRef(
+    throttle(async (newValue) => {
+      await setAppState({ ...appState, q: newValue });
+    }, 1000)
+  ).current;
+
+  const handleInputChange = async (e) => {
+    const newValue = e.target.value;
+
+    handleInputChangeThrottled(newValue);
+  };
+
   const rowsPerPageOptions = getRowsPerPageOptions(maxCount, pageSize);
 
   useEffect(() => {
@@ -109,7 +122,7 @@ const HomePage = ({ appState, setAppState }) => {
               inputProps={{ "aria-label": "search" }}
               sx={{ border: 1, borderRadius: 1, borderColor: "#ECF0F6" }}
               value={q}
-              onChange={(e) => setAppState({ ...appState, q: e.target.value })}
+              onChange={handleInputChange}
             />
           </Search>
           <Button
